@@ -132,7 +132,7 @@ python3 tools/install.py doctor
 ```bash
 sudo apt-get install --no-install-recommends \
   ibus-rime librime-plugin-lua librime-bin rime-prelude \
-  python3-yaml python3-gi lua5.4 librime-dev g++
+  python3-yaml python3-gi gsettings-desktop-schemas lua5.4 librime-dev g++
 ./tools/test.sh
 ```
 

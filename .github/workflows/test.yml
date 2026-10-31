@@ -12,7 +12,7 @@ jobs:
       - name: 安裝測試依賴
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ibus-rime librime-plugin-lua librime-bin rime-prelude python3-yaml python3-gi lua5.4 librime-dev g++
+          sudo apt-get install -y --no-install-recommends ibus-rime librime-plugin-lua librime-bin rime-prelude python3-yaml python3-gi gsettings-desktop-schemas lua5.4 librime-dev g++
       - name: 驗證字庫、安裝流程及輸入操作
         run: ./tools/test.sh
       - name: 打包
