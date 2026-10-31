@@ -1,0 +1,81 @@
+# SPDX-License-Identifier: MIT
+schema:
+  schema_id: linux_xp_quick
+  name: XP 速成
+  version: '0.0.1'
+  author:
+    - linux-xp-quick contributors
+  description: 固定字序、繁體聯想；一碼空白鍵出字，兩碼空白鍵翻頁。
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [中文, 英文]
+  - name: full_shape
+    reset: 0
+    states: [半角, 全角]
+  - name: ascii_punct
+    reset: 0
+    states: [中文標點, 英文標點]
+
+engine:
+  processors:
+    - lua_processor@*linux_xp_quick_processor
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - lua_translator@*linux_xp_quick_translator
+    - punct_translator
+    - table_translator
+  filters:
+    - lua_filter@*linux_xp_quick_filter
+
+speller:
+  alphabet: abcdefghijklmnopqrstuvwxyz
+  max_code_length: 2
+
+translator:
+  dictionary: linux_xp_quick
+  enable_user_dict: false
+  enable_completion: true
+  enable_sentence: false
+  preedit_format:
+    - 'xlit|abcdefghijklmnopqrstuvwxyz|日月金木水火土竹戈十大中一弓人心手口尸廿山女田難卜重|'
+  comment_format:
+    - 'xform/.*//'
+
+menu:
+  page_size: 9
+
+ascii_composer:
+  good_old_caps_lock: true
+  switch_key:
+    Shift_L: noop
+    Shift_R: noop
+    Control_L: noop
+    Control_R: noop
+    Caps_Lock: clear
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  bindings:
+    - {when: has_menu, accept: equal, send: Page_Down}
+    - {when: has_menu, accept: minus, send: Page_Up}
+
+recognizer:
+  patterns:
+    prediction: '^~$'

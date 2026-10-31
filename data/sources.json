@@ -1,0 +1,14 @@
+{
+  "quick-classic.txt": {
+    "url": "https://raw.githubusercontent.com/mike-fabian/ibus-table-chinese/1.8.12/tables/quick/quick-classic.txt",
+    "revision": "1.8.12",
+    "license": "Freely redistributable without restriction",
+    "sha256": "f87a9ade3360d48b0ec6d733f6a46c108423661a5be70a0c3101ad94a614fd1a"
+  },
+  "cixin_quick_index.lua": {
+    "url": "https://raw.githubusercontent.com/arliong/rime-cixin-quick/e6d0377c45858187d254ec4a719ee601625f90a4/lua/cixin_quick_index.lua",
+    "revision": "e6d0377c45858187d254ec4a719ee601625f90a4",
+    "license": "LGPL-3.0 (derived phrase data); upstream MIT notice also retained",
+    "sha256": "8404c0f09fd3825f672369e0e945ff4d873fb37a8281d015065b4ae5e1d62b2f"
+  }
+}
