@@ -7,7 +7,7 @@
 
 以 Rime／IBus 為基礎，提供固定字序、每頁 9 個候選字、繁體中文聯想，以及 `Shift＋數字` 續接選字。
 
-目前版本：**0.0.1**。已在 **Ubuntu 24.04、GNOME、X11、IBus Rime 1.5、librime 1.10** 驗證。
+目前版本：**0.0.2**。已在 **Ubuntu 24.04、GNOME、X11、IBus Rime 1.5、librime 1.10** 驗證。
 
 ## 操作方式
 
@@ -23,11 +23,16 @@
 | `=`／`Page Down` | 下一頁 |
 | `-`／`Page Up` | 上一頁 |
 | `Esc` | 取消候選／聯想清單 |
+| 聯想清單出現時按 `←`／`→` | 關閉聯想並移動文字游標 |
 | 聯想清單出現時繼續輸入字根 | 直接開始下一個字 |
 
 聯想清單只顯示將要輸入的字，例如「須、然、要」，沒有重複的完整詞組註解。亦可用滑鼠選字。聯想階段的空白鍵採用 Rime 預設行為：選取目前候選；`Shift＋數字` 可直接指定位置。
 
+連續快打時，如果下一個字的第一個字根比選字數字先按下，速成會先保留這個字根，選字後再用它開始下一個字。
+
 選用 GNOME 設定後，`Ctrl＋Space` 及 `Ctrl＋Shift` 可切換輸入來源。如果桌面只有英文與 Rime 兩個來源，就是切換中／英文；有其他來源時則會循環切換。
+
+Caps Lock 開啟時仍可在中文模式輸入速成。要改用英文，可以切換輸入來源。
 
 ## 安裝
 
@@ -36,9 +41,9 @@
 需要 Python 3.10 以上。Ubuntu 24.04 已內建 Python 3。
 
 ```bash
-curl -fLO https://github.com/billysyt/linux-xp-quick/releases/download/v0.0.1/linux-xp-quick-0.0.1.tar.gz
-tar -xzf linux-xp-quick-0.0.1.tar.gz
-cd linux-xp-quick-0.0.1
+curl -fLO https://github.com/billysyt/linux-xp-quick/releases/download/v0.0.2/linux-xp-quick-0.0.2.tar.gz
+tar -xzf linux-xp-quick-0.0.2.tar.gz
+cd linux-xp-quick-0.0.2
 ./install.sh --install-deps --configure-gnome
 ```
 
@@ -68,7 +73,7 @@ cd linux-xp-quick-0.0.1
 ```bash
 git clone https://github.com/billysyt/linux-xp-quick.git
 cd linux-xp-quick
-git checkout v0.0.1
+git checkout v0.0.2
 ./install.sh --install-deps --configure-gnome
 ```
 
@@ -76,7 +81,7 @@ git checkout v0.0.1
 
 安裝 IBus Rime、librime Lua 插件、`rime_deployer`、Rime prelude 及 PyYAML 後執行 `./install.sh`。切換鍵與輸入來源請在桌面設定中調整。
 
-0.0.1 的自動安裝流程以 Ubuntu／Debian IBus 為支援範圍。Fcitx5、Wayland 及其他發行版尚未完整驗證；核心方案採用 Rime 格式，但這一版不提供 Fcitx5 自動設定。
+自動安裝流程以 Ubuntu／Debian IBus 為支援範圍。Fcitx5、原生 Wayland 及其他發行版尚未完整驗證。下方常見問題有 XWayland 下 Chromium／Electron 的 IBus 設定。
 
 ## 更新、備份與移除
 
@@ -122,6 +127,12 @@ python3 tools/install.py doctor
 **Ctrl＋Shift 與其他快捷鍵互相影響？**
 
 這個組合由 GNOME／XKB 處理，某些應用程式也會使用 Ctrl＋Shift 組合。可在桌面設定保留 Ctrl＋Space，改用其他輸入來源切換鍵；速成方案本身不會攔截 Ctrl／Alt／Super 快捷鍵來選聯想字。
+
+**XWayland 下的 Chromium／Electron 快打出現英文字母、數字或錯字？**
+
+若程式透過 XIM 使用 IBus Rime，請完全退出該程式，再以 `GTK_IM_MODULE=ibus IBUS_ENABLE_SYNC_MODE=1` 啟動，讓程式直接同步處理 IBus 按鍵。這項設定適用於該程式的啟動命令。
+
+若開啟聯想時按左／右方向鍵仍無法移動游標，可在 `~/.config/ibus/rime/ibus_rime.custom.yaml` 的 `patch` 下加入 `style/inline_preedit: false`，再從 Rime 選單執行「部署」。未確認的字根會改在候選窗顯示。
 
 **想修改聯想排序？**
 

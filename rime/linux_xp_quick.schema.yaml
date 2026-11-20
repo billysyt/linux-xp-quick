@@ -2,7 +2,7 @@
 schema:
   schema_id: linux_xp_quick
   name: XP 速成
-  version: '0.0.1'
+  version: '0.0.2'
   author:
     - linux-xp-quick contributors
   description: 固定字序、繁體聯想；一碼空白鍵出字，兩碼空白鍵翻頁。
@@ -39,8 +39,6 @@ engine:
     - lua_translator@*linux_xp_quick_translator
     - punct_translator
     - table_translator
-  filters:
-    - lua_filter@*linux_xp_quick_filter
 
 speller:
   alphabet: abcdefghijklmnopqrstuvwxyz
@@ -60,13 +58,12 @@ menu:
   page_size: 9
 
 ascii_composer:
-  good_old_caps_lock: true
   switch_key:
     Shift_L: noop
     Shift_R: noop
     Control_L: noop
     Control_R: noop
-    Caps_Lock: clear
+    Caps_Lock: noop
 
 punctuator:
   import_preset: default
@@ -78,4 +75,4 @@ key_binder:
 
 recognizer:
   patterns:
-    prediction: '^~$'
+    prediction: '^\x01$'
